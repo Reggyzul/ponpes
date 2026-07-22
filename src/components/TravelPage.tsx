@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   ArrowLeft, Plane, CheckCircle2, MessageSquare, 
-  ExternalLink, Award, Sparkles, Star, Building2, Home, Compass, PackageCheck 
+  ExternalLink, Award, Sparkles, Star, Building2, Home, Compass, PackageCheck, X 
 } from 'lucide-react';
 
 interface TravelPageProps {
@@ -10,10 +10,35 @@ interface TravelPageProps {
 }
 
 export default function TravelPage({ whatsappNumber, onBackToHome }: TravelPageProps) {
+  const [activeImage, setActiveImage] = useState<string | null>(null);
+
   const handleWAOrder = () => {
     const text = "Assalamu'alaikum, saya ingin konsultasi & pendaftaran Travel Umroh & Haji MURIZ MBAH PUGUNG Barokatul Qodiri.";
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank');
   };
+
+  const galleryItems = [
+    {
+      src: '/images/umroh_nabawi.jpg',
+      title: 'Ziarah Masjid Nabawi',
+      desc: 'Bimbingan ibadah intensif dan ziarah makam Rasulullah SAW di pelataran kubah hijau Masjid Nabawi, Madinah.'
+    },
+    {
+      src: '/images/umroh_staff.jpg',
+      title: 'Pelayanan Staf Bandara',
+      desc: 'Pendampingan keberangkatan jamaah secara lengkap dan ramah oleh staf Muriz Travel di bandara sebelum terbang.'
+    },
+    {
+      src: '/images/umroh_couple.jpg',
+      title: 'Kekhusyukan Jamaah Ihram',
+      desc: 'Kebersamaan hangat pasutri jamaah mengenakan pakaian ihram putih bersih bersiap melaksanakan ibadah umroh.'
+    },
+    {
+      src: '/images/umroh_thumbs.jpg',
+      title: 'Pendampingan di Tanah Suci',
+      desc: 'Keramahan pembimbing dalam mendampingi jamaah di bandara Arab Saudi demi kenyamanan dan keselamatan perjalanan.'
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors py-12 px-4 sm:px-6 lg:px-8">
@@ -194,7 +219,110 @@ export default function TravelPage({ whatsappNumber, onBackToHome }: TravelPageP
 
         </div>
 
+        {/* Dokumentasi & Brosur Resmi */}
+        <div className="bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm space-y-8">
+          <div className="space-y-2 text-left">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider">
+              <Sparkles className="h-4 w-4 text-amber-500" /> Dokumentasi &amp; Brosur Resmi
+            </span>
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+              Galeri Perjalanan &amp; Brosur Paket
+            </h3>
+            <p className="font-sans text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+              Dokumentasi nyata bimbingan ibadah jamaah Muriz Mbah Pugung di Makkah dan Madinah, beserta brosur paket penawaran premium.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Left Column: Official Brochure Spotlight */}
+            <div className="lg:col-span-5 space-y-4">
+              <h4 className="text-xs font-bold uppercase text-amber-500 tracking-wider text-left">
+                Brosur Paket Premium
+              </h4>
+              <div 
+                onClick={() => setActiveImage('/images/umroh_flyer.jpg')}
+                className="group relative cursor-pointer overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 shadow-md hover:shadow-lg transition duration-300 bg-slate-50 dark:bg-gray-950 aspect-[3/4] flex items-center justify-center"
+              >
+                <img
+                  src="/images/umroh_flyer.jpg"
+                  alt="Brosur Resmi Umrah PT Mugi Rizky"
+                  className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 select-none"
+                />
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white gap-2">
+                  <div className="p-3 bg-emerald-600/90 rounded-full shadow-lg">
+                    <ExternalLink className="h-5 w-5" />
+                  </div>
+                  <span className="text-xs font-bold tracking-wide">Klik untuk Memperbesar Brosur</span>
+                </div>
+                {/* Badge overlay */}
+                <span className="absolute top-4 left-4 px-2.5 py-1 bg-amber-400 text-emerald-950 text-[10px] font-extrabold rounded-md shadow-sm uppercase tracking-wider">
+                  Brosur Resmi
+                </span>
+              </div>
+            </div>
+
+            {/* Right Column: 2x2 Real-Life Photos Grid */}
+            <div className="lg:col-span-7 space-y-4">
+              <h4 className="text-xs font-bold uppercase text-emerald-600 dark:text-emerald-400 tracking-wider text-left">
+                Dokumentasi Kegiatan Jamaah
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {galleryItems.map((item, idx) => (
+                  <div 
+                    key={idx}
+                    onClick={() => setActiveImage(item.src)}
+                    className="group bg-slate-50 dark:bg-gray-950 rounded-2xl border border-gray-100 dark:border-gray-800/80 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300 flex flex-col text-left cursor-pointer"
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden bg-slate-200 dark:bg-gray-800">
+                      <img
+                        src={item.src}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500 select-none"
+                      />
+                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span className="px-3 py-1.5 bg-black/60 backdrop-blur-xs text-white text-[10px] font-bold rounded-lg border border-white/10">Lihat Foto</span>
+                      </div>
+                    </div>
+                    <div className="p-4 space-y-1">
+                      <h5 className="font-sans font-bold text-xs sm:text-sm text-gray-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                        {item.title}
+                      </h5>
+                      <p className="font-sans text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
+
+      {/* Lightbox Modal Overlay */}
+      {activeImage && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setActiveImage(null)}
+        >
+          <div className="relative max-w-4xl max-h-[85vh] w-full flex items-center justify-center">
+            <button
+              onClick={() => setActiveImage(null)}
+              className="absolute -top-12 right-0 p-2 text-white/75 hover:text-white hover:bg-white/10 rounded-full transition cursor-pointer"
+            >
+              <X className="h-7 w-7" />
+            </button>
+            <img 
+              src={activeImage} 
+              alt="Zoomed documentation" 
+              className="max-w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl border border-white/10 select-none"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
