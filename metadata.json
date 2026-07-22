@@ -1,0 +1,6 @@
+{
+  "name": "Barokatul Qodiri",
+  "description": "Website resmi Pondok Pesantren Barokatul Qodiri Pesisir Barat. Membentuk generasi Intelektual, Religius dan Berkarakter.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
